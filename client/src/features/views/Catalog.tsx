@@ -1,22 +1,51 @@
-import '../../index.css';
+import { Col, Container, Row } from "react-bootstrap";
+import Card from 'react-bootstrap/Card';
 
 export const Catalog = () => {
   return (
-    <main className="grid min-h-full place-items-center bg-white py-24 px-6 sm:py-32 lg:px-8">
-      <div className="text-center">
-        <p className="text-3xl font-semibold text-indigo-600">404</p>
-        <h1 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-          Page non trouvée
-        </h1>
-        <p className="mt-6 text-base leading-7 text-gray-600">
-          Désolé, la page que vous chercher n'existe pas.
-        </p>
-        <div className="mt-10 flex items-center justify-center">
-          <a href="/" className="text-lg font-semibold text-gray-900">
-            Revenir à l'accueil <span aria-hidden="true">→</span>
-          </a>
+    <Container className="mt-4 ">
+      <div className="relative px-2">
+        <div className="mx-auto py-8">
+          <div className="text-center">
+            <h1>Voici nos différents services :</h1>
+          </div>
         </div>
+
+        
+        
+
+        <Row>
+          {[
+            'Primary',
+            'Secondary',
+            'Success',
+            'Danger',
+            'Warning',
+            'Info',
+            'Light',
+            'Dark',
+          ].map((item) => (
+            <Col key={item}>
+              <Card
+                bg={item.toLowerCase()}
+                key={item}
+                text={item.toLowerCase() === 'light' ? 'dark' : 'white'}
+                style={{ width: '18rem' }}
+                className="my-2"
+              >
+                <Card.Header>Header</Card.Header>
+                <Card.Body>
+                  <Card.Title>{item} Card Title </Card.Title>
+                  <Card.Text>
+                    Some quick example text to build on the card title and make up the
+                    bulk of the card's content.
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
       </div>
-    </main>
+    </Container>
   );
 };

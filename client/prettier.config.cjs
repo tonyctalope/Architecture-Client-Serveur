@@ -1,7 +1,7 @@
 /** @type {import("prettier").Config} */
 module.exports = {
-  plugins: [require.resolve('prettier-plugin-tailwindcss')],
-  tailwindConfig: './tailwind.config.cjs',
+  parser: '@typescript-eslint/parser',
+  parserOptions: { project: ['./tsconfig.json'] },
   singleQuote: true,
   trailingComma: 'es5',
   printWidth: 100,
