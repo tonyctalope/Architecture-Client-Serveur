@@ -53,6 +53,8 @@ orders_beers = db.Table('orders_beers',
 
 class BeerResource(Resource):
     def get(self, beer_id=None):
+        page = request.args.get('page', default=1, type=int)
+        per_page = 5
         if beer_id:
             beer = Beer.query.get(beer_id)
             if beer:
@@ -68,8 +70,9 @@ class BeerResource(Resource):
                 }
             else:
                 return {'message': 'Beer not found'}, 404
-        else:
-            beers = Beer.query.all()
+        elif 'name' in request.args:
+            name = request.args['name']
+            beers = Beer.query.filter(Beer.name.ilike(f'%{name}%')).all()
             return [{
                 'id': beer.id,
                 'name': beer.name,
@@ -80,6 +83,25 @@ class BeerResource(Resource):
                     'location': beer.brewery.location
                 }
             } for beer in beers]
+        else:
+            beers = Beer.query.order_by(Beer.id).paginate(page=page, per_page=per_page)
+            return {
+                'beers': [{
+                    'id': beer.id,
+                    'name': beer.name,
+                    'style': beer.style,
+                    'brewery': {
+                        'id': beer.brewery.id,
+                        'name': beer.brewery.name,
+                        'location': beer.brewery.location
+                    }
+                } for beer in beers.items],
+                'prev_page': beers.prev_num,
+                'next_page': beers.next_num,
+                'has_prev': beers.has_prev,
+                'has_next': beers.has_next,
+                'total_pages': beers.pages
+            }
 
     def post(self):
         name = request.json.get('name')
