@@ -8,6 +8,8 @@ services:
       - "5000:5000"
     volumes:
       - ./server:/app
+    environment:
+      - DB_CONNECTION_STRING=mysql+pymysql://root:root@db:3306/ubeer
     depends_on:
       db:
         condition: service_healthy
