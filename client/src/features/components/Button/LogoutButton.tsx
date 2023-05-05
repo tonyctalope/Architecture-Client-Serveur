@@ -7,9 +7,10 @@ export const LogoutButton = () => {
 
   return (
     <Button
+      className="px-4"
       variant="danger"
       onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
-      Se déconnecter
+      Déconnexion
     </Button>
   );
 };

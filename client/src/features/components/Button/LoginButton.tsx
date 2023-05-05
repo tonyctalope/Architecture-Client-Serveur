@@ -6,8 +6,8 @@ export const LoginButton = () => {
   const { loginWithPopup } = useAuth0();
 
   return (
-    <Button variant="success" onClick={() => loginWithPopup()}>
-      Se connecter
+    <Button className="px-4" variant="success" onClick={() => loginWithPopup()}>
+      Connexion
     </Button>
   );
 };

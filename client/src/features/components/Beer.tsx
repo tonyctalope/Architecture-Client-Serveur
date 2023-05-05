@@ -9,7 +9,7 @@ export const Beer = (
   redirect: string
 ) => {
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card style={{ width: '18rem', marginBlock: '8px' }}>
       <Card.Img variant="top" src={imgUrl} />
       <Card.Body>
         <Card.Title>

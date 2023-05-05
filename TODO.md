@@ -7,3 +7,7 @@
   - Test unitaire et E2E côté front (Mathias) 🟧
   - Déploiement du back sur Azure (Pierre et Tony) ✅
   - Déploiement du front sur Vercel (?) 🟧
+
+
+
+- faire un systeme de selection entre bieres et brasseries dans la page recherche (Mathias) 🟧
