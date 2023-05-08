@@ -1,24 +1,34 @@
-export type BeerProps = {
-  id?: number;
+export type BeerFullProps = {
+  id: number;
   name: string;
   style: string;
-  brewery_id: number;
+  brewery: {
+    id: number;
+    name: string;
+    location: string;
+  };
+};
+
+export type BeerProps = {
+  id: number;
+  name: string;
+  style: string;
 };
 
 export type BreweryProps = {
-  id?: number;
+  id: number;
   name: string;
   location: string;
-  beers: number[];
+  beers: BeerProps[];
 };
 
 type DateISO = string;
 
 export type OrderProps = {
-  id?: number;
-  customer_name?: string;
+  id: number;
+  customerName?: string;
   date: DateISO;
-  beers: number[];
+  beers: BeerProps[];
 };
 
 export type ButtonProps = {
@@ -36,4 +46,16 @@ export type ButtonProps = {
   href?: string;
   color?: string;
   pageId?: number;
+};
+
+export type CardProps = {
+  pictureSrc?: string;
+  name?: string;
+  style?: string;
+  breweryName?: string;
+  breweryLocation?: string;
+  type?: 'order';
+  customerName?: string;
+  date?: DateISO;
+  beer?: BeerProps;
 };

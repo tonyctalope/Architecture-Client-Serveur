@@ -19,6 +19,10 @@ export async function getAllBreweries() {
   return await axios.get(`${baseUrl}breweries`).then((res) => res.data);
 }
 
+export async function getABreweryById(id: number) {
+  return await axios.get(`${baseUrl}breweries/${id}`).then((res) => res.data);
+}
+
 // GET ENDPOINTS -- Order
 export async function getAllOrders() {
   return axios.get(`${baseUrl}orders`).then((res) => res.data);

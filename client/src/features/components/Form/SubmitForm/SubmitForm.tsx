@@ -4,7 +4,7 @@ import { Beer } from '../..';
 
 import { UseMutationResult, useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { postABeer, postABrewery } from '../../../api/POSTRequests';
+import { postABeer, postABrewery } from '../../../api/postRequests';
 import { BeerProps } from '../../../types';
 
 export const SubmitForm = () => {

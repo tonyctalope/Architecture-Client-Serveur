@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { baseUrl } from '../constants';
-import { BeerProps, BreweryProps, OrderProps } from '../types';
+import { BeerFullProps, BreweryProps, OrderProps } from '../types';
 
 // POST ENDPOINTS -- Beer
-export async function postABeer({ name, style, brewery_id }: BeerProps) {
+export async function postABeer({ name, style, brewery }: BeerFullProps) {
   return await axios
     .post(`${baseUrl}beers`, {
       headers: {
@@ -12,7 +12,7 @@ export async function postABeer({ name, style, brewery_id }: BeerProps) {
       body: {
         name: `${name}`,
         style: `${style}`,
-        brewery_id: `${brewery_id}`
+        brewery_id: `${brewery}`
       }
     })
     .then((res) => res.data);
@@ -34,14 +34,14 @@ export async function postABrewery({ name, location }: BreweryProps) {
 }
 
 // POST ENDPOINTS -- Order
-export async function postAnOrder({ customer_name, beers, date }: OrderProps) {
+export async function postAnOrder({ customerName, beers, date }: OrderProps) {
   return await axios
     .put(`${baseUrl}orders`, {
       headers: {
         'Content-Type': 'application/json'
       },
       body: {
-        customer_name: `${customer_name}`,
+        customer_name: `${customerName}`,
         date: `${date}`,
         beers: `${beers}`
       }

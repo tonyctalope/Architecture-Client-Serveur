@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef, FormEventHandler } from 'react';
 import { Button, Container } from 'react-bootstrap';
-import { Beer, SubmitForm } from '../components';
-import { BeerProps } from '../types';
+import { Beer, SubmitForm } from '../../components';
+import { BeerFullProps } from '../../types';
 import { useAuth0 } from '@auth0/auth0-react';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { postABeer, postABrewery } from '../api/POSTRequests';
+import { postABeer, postABrewery } from '../../api/postRequests';
 
-export const Create = () => {
+export const Edit = () => {
   const { isAuthenticated, user } = useAuth0();
 
   const nameRef = useRef();
@@ -61,11 +61,11 @@ export const Create = () => {
               </button>
             </form>
             <ul>
-              {beers.map((beer: BeerProps) => (
+              {beers.map((beer: BeerFullProps) => (
                 <li key={beer.id}>
                   <div>Nom de la bière: {beer.name}</div>
                   <div>Style de bière: {beer.style}</div>
-                {/* 
+                  {/* 
                 <Button
                   variant="danger"
                   onClick={() => {
@@ -73,9 +73,9 @@ export const Create = () => {
                   }}>
                   Supprimer la commande
                 </Button> */}
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
           </>
         ) : (
           <p>Veuillez vous connecter</p>

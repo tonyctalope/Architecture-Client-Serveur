@@ -6,7 +6,6 @@
 - Déploiement complet du système avec une pipeline de CI / CD :
   - Test unitaire et E2E côté front (Mathias) 🟧
   - Déploiement du back sur Azure (Pierre et Tony) ✅
-  - Déploiement du front sur Vercel (?) 🟧
 
 
 

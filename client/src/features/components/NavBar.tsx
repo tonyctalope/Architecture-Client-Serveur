@@ -5,14 +5,15 @@ import { Link } from 'react-router-dom';
 
 // TODO: modif la navbar pour faire en sorte d'avoir juste rechercher et dans la page rechercher avoir un btn pour switcher entre recherche par bière et recherche par brasserie
 
-const navigation = [
-  { name: 'Ajouter un élément', linkTo: '/creation' },
-  { name: 'Panier', linkTo: '/panier' }
-];
-
-const navigationDropdown = [
+const searchDropdown = [
   { name: 'Rechercher une bière', linkTo: '/recherche' },
   { name: 'Rechercher une brasserie', linkTo: '/recherche-par-brasserie' }
+];
+
+const managementDropdown = [
+  { name: 'Ajout', linkTo: '/creation' },
+  { name: 'Modification', linkTo: '/modification' },
+  { name: 'Suppression', linkTo: '/suppression' }
 ];
 
 export const NavBar = () => {
@@ -27,10 +28,10 @@ export const NavBar = () => {
           <Nav className="me-auto top-50 d-flex align-items-center">
             <NavDropdown
               className="text-white"
-              title="Rechercher"
+              title="Recherche"
               id="basic-nav-dropdown"
               menuVariant="dark">
-              {navigationDropdown.map((item) => (
+              {searchDropdown.map((item) => (
                 <NavDropdown.Item key={item.name}>
                   <Link
                     className="mx-2 text-white"
@@ -42,15 +43,30 @@ export const NavBar = () => {
                 </NavDropdown.Item>
               ))}
             </NavDropdown>
-            {navigation.map((item) => (
-              <Link
-                className="mx-2 text-white"
-                style={{ textDecoration: 'none' }}
-                key={item.name}
-                to={item.linkTo}>
-                {item.name}
-              </Link>
-            ))}
+            <NavDropdown
+              className="text-white"
+              title="Gestion"
+              id="basic-nav-dropdown"
+              menuVariant="dark">
+              {managementDropdown.map((item) => (
+                <NavDropdown.Item key={item.name}>
+                  <Link
+                    className="mx-2 text-white"
+                    style={{ textDecoration: 'none' }}
+                    key={item.name}
+                    to={item.linkTo}>
+                    {item.name}
+                  </Link>
+                </NavDropdown.Item>
+              ))}
+            </NavDropdown>
+            <Link
+              className="mx-2 text-white"
+              style={{ textDecoration: 'none' }}
+              key="Panier"
+              to="/panier">
+              Panier
+            </Link>
           </Nav>
           <Auth />
         </Navbar.Collapse>
