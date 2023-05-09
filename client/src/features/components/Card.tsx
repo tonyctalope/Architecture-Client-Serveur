@@ -7,15 +7,15 @@ export const Card = ({
   name,
   style,
   type,
-  date,
   breweryName,
   breweryLocation,
+  date,
   children
 }: PropsWithChildren<CardProps>) => {
   return (
     <CardBootstrap
       border="dark"
-      style={{ background: '#cccccc', width: '14rem', display: 'flex', justifyContent: 'center' }}>
+      style={{ background: '#cccccc', width: '280px', display: 'flex', justifyContent: 'center' }}>
       <CardBootstrap.Img
         src={pictureSrc}
         style={{
@@ -32,7 +32,7 @@ export const Card = ({
         <>
           <CardBootstrap.Body className="d-flex flex-column align-items-center">
             <CardBootstrap.Text>
-              <strong>Date de la commande:</strong> {date}
+              <strong>Date:</strong> {date}
             </CardBootstrap.Text>
             <CardBootstrap.Text>
               <strong>Nom:</strong> {name}
@@ -44,7 +44,9 @@ export const Card = ({
             {children}
           </CardBootstrap.Body>
         </>
-      ) : (
+      ) : null}
+
+      {type === 'beer' ? (
         <CardBootstrap.Body className="d-flex flex-column align-items-center">
           <CardBootstrap.Text>
             <strong>Nom:</strong> {name}
@@ -61,7 +63,20 @@ export const Card = ({
 
           {children}
         </CardBootstrap.Body>
-      )}
+      ) : null}
+
+      {type === 'brewery' ? (
+        <CardBootstrap.Body className="d-flex flex-column align-items-center">
+          <CardBootstrap.Text>
+            <strong>Nom:</strong> {name}
+          </CardBootstrap.Text>
+          <CardBootstrap.Text>
+            <strong>Style:</strong> {style}
+          </CardBootstrap.Text>
+
+          {children}
+        </CardBootstrap.Body>
+      ) : null}
     </CardBootstrap>
   );
 };

@@ -8,7 +8,17 @@ import { App } from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      retry: 2,
+      staleTime: 2 * 60 * 1000
+    }
+  }
+});
 
 root.render(
   <StrictMode>

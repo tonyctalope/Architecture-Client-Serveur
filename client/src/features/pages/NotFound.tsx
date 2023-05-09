@@ -1,5 +1,5 @@
-import React from 'react';
 import { Button, Container, Image } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export const NotFound = () => {
   return (
@@ -15,8 +15,10 @@ export const NotFound = () => {
 
         <div className="absolute z-1">
           <p className="mt-6">Désolé, la page que vous cherchez n'existe pas.</p>
-          <Button href="/" className="primary text-white">
-            Revenir à l'accueil
+          <Button href="/" variant="dark">
+            <Link to="/" className="text-white" style={{ textDecoration: 'none' }}>
+              Revenir à l'accueil
+            </Link>
           </Button>
         </div>
       </div>

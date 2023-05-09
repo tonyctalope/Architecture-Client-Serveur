@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Card } from '../../components';
 import { Container, Button, Col, Row, Nav, Tab } from 'react-bootstrap';
-import { BeerProps, BreweryProps } from '../../types';
+import { BeerFullProps, BeerProps, BreweryProps } from '../../types';
 import { useAuth0 } from '@auth0/auth0-react';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -19,7 +19,7 @@ export const SearchByBreweries = () => {
     keepPreviousData: true,
     queryFn: getAllBreweries,
     retry: 5,
-    cacheTime: 60
+    cacheTime: 60 * 1000
   });
 
   function defineBreweryId(id: number) {
@@ -31,7 +31,7 @@ export const SearchByBreweries = () => {
     keepPreviousData: true,
     queryFn: () => getABreweryById(id),
     retry: 5,
-    cacheTime: 60
+    cacheTime: 60 * 1000
   });
 
   const queryPostAnOrder = useMutation({
@@ -78,20 +78,22 @@ export const SearchByBreweries = () => {
     );
   }
 
+  //console.log(queryGetABreweryById.data?.beers);
+
   return (
     <Container className="mt-4">
       <div className="relative px-2">
         {isAuthenticated && user !== undefined ? (
           <Tab.Container id="left-tabs-example" defaultActiveKey="1">
             <Row>
-              <Col sm={3}>
+              <Col sm={2}>
                 <Nav variant="pills" className="flex-column">
                   {queryGetAllBreweries.data?.map((breweries: BreweryProps) => (
                     <Nav.Item key={breweries.id}>
                       <Nav.Link
                         eventKey={breweries.id}
                         onClick={() => {
-                          defineBreweryId(breweries.id);
+                          breweries.id && defineBreweryId(breweries.id);
                         }}>
                         {breweries.name}
                       </Nav.Link>
@@ -101,13 +103,19 @@ export const SearchByBreweries = () => {
               </Col>
               <Col sm={9}>
                 <Tab.Content>
-                  {queryGetABreweryById.data.brewbery?.map((brewery: BreweryProps) => (
+                  {queryGetABreweryById.data?.beers.length === 0 ? (
+                    <h5 className="d-md-flex m-4 gap-4 align-items-center justify-content-evenly">
+                      Il n'y a pas de bières dans cette brasserie.
+                    </h5>
+                  ) : (
                     <>
-                      {brewery.beers.map((beer: BeerProps) => (
-                        <Tab.Pane key={beer.id} eventKey={beer.id}>
+                      <div className="d-md-flex m-4 gap-4 align-items-center justify-content-evenly flex-wrap">
+                        {queryGetABreweryById.data?.beers.map((beer: BeerFullProps) => (
                           <Card
                             key={beer.id}
+                            type="brewery"
                             name={beer.name}
+                            pictureSrc={'/img/beers/' + beer.style.toLowerCase() + '.png'}
                             style={beer.style}
                             children={
                               <Button
@@ -118,24 +126,21 @@ export const SearchByBreweries = () => {
                                     queryPostAnOrder.mutate({
                                       id: makeAnOrder(),
                                       customerName: user.name,
-                                      date: new Date().toISOString(),
-                                      beers: [
-                                        {
-                                          id: beer.id,
-                                          name: beer.name,
-                                          style: beer.style
-                                        }
-                                      ]
+                                      beers: {
+                                        id: beer.id,
+                                        name: beer.name,
+                                        style: beer.style
+                                      }
                                     });
                                 }}>
                                 Acheter
                               </Button>
                             }
                           />
-                        </Tab.Pane>
-                      ))}
+                        ))}
+                      </div>
                     </>
-                  ))}
+                  )}
                 </Tab.Content>
               </Col>
             </Row>
