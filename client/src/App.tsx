@@ -1,17 +1,20 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { NavBar } from './features/components';
+import { NotFound, Home, Search, Cart, SearchByBreweries } from './features/pages';
 
-import './index.css';
-
-import { NotFound } from './features/views/NotFound';
-
-function App() {
+export const App = () => {
   return (
     <div className="App">
       <Router>
-        <Route path="/" element={<NotFound />} />
+        <NavBar />
+        <Routes>
+          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/recherche" element={<Search />} />
+          <Route path="/recherche-par-brasserie" element={<SearchByBreweries />} />
+          <Route path="/panier" element={<Cart />} />
+        </Routes>
       </Router>
     </div>
   );
-}
-
-export default App;
+};
